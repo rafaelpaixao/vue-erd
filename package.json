@@ -1,16 +1,22 @@
 {
   "name": "vue-erd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ERD editor based on JointJS for Vue.js",
   "author": {
     "name": "Rafael Paixão"
   },
   "repository": "https://github.com/rafaelpaixao/vue-erd",
   "bugs": "https://github.com/rafaelpaixao/vue-erd/issues",
-  "keywords": ["erd", "jointjs", "vuejs"],
+  "keywords": [
+    "erd",
+    "jointjs",
+    "vuejs"
+  ],
   "license": "MIT",
   "private": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "dist/myComponent.umd.js",
   "unpkg": "dist/myComponent.umd.min.js",
   "scripts": {
