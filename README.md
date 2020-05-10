@@ -1,7 +1,13 @@
 # vue-erd
 
-Entity-Relationship diagram editor made with Vue.js and Joint.js
+Entity-Relationship diagram editor made with Vue.js and Joint.js. [DEMO](https://vue-erd.netlify.app/)
 
+# How To Use
+```
+npm i vue-erd
+```
+
+# Development
 ## Project setup
 ```
 npm install
