@@ -1,5 +1,7 @@
 # vue-erd
 
+Entity-Relationship diagram editor made with Vue.js and Joint.js
+
 ## Project setup
 ```
 npm install
