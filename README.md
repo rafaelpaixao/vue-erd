@@ -1,5 +1,8 @@
 # vue-erd
 
+[![Build Status](https://travis-ci.org/rafaelpaixao/vue-erd.svg?branch=master)](https://travis-ci.org/rafaelpaixao/vue-erd)
+[![Coverage Status](https://coveralls.io/repos/github/rafaelpaixao/vue-erd/badge.svg?branch=master)](https://coveralls.io/github/rafaelpaixao/vue-erd?branch=master)
+
 Entity-Relationship diagram editor made with Vue.js and Joint.js. [DEMO](https://vue-erd.netlify.app/)
 
 # How To Use
