@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+    - "node"
+cache: npm
+script:
+    - npm run test:unit
+after_script:
+    - cat ./coverage/lcov.info | coveralls
