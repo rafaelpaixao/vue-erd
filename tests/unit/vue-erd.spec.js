@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
 import VueErd from '@/vue-erd/index.vue'
-import { ErdDemo } from '@/vue-erd/erd/demo'
+import { ErdDemo } from '@/vue-erd/core/demo'
 
-jest.mock('../../src/vue-erd/erd/demo')
+jest.mock('../../src/vue-erd/core/demo')
 ErdDemo.init = jest.fn()
 
 const propsData = {

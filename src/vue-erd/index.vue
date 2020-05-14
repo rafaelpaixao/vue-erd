@@ -2,8 +2,8 @@
   <div :id="id"></div>
 </template>
 <script>
-
-import { Diagram, ErdDemo } from './erd'
+import { Diagram } from './core/erd'
+import { ErdDemo } from './core/demo'
 
 export default {
   props: {
