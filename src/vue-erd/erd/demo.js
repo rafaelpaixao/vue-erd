@@ -1,5 +1,7 @@
+import joint from './joint'
+
 export class ErdDemo {
-  static init (joint) {
+  static init () {
     var V = joint.V
     var g = joint.g
 

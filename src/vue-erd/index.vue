@@ -2,13 +2,12 @@
   <div id="paper"></div>
 </template>
 <script>
-import 'jointjs/dist/joint.min.css'
-import * as joint from 'jointjs'
+
 import { ErdDemo } from './erd/demo'
 
 export default {
   mounted () {
-    ErdDemo.init(joint)
+    ErdDemo.init()
   }
 }
 </script>
