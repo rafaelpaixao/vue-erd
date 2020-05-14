@@ -1,7 +1,7 @@
 import joint from './joint'
 
 export class ErdDemo {
-  static init () {
+  static init (diagram) {
     var V = joint.V
     var g = joint.g
 
@@ -10,9 +10,9 @@ export class ErdDemo {
     var graph = new joint.dia.Graph()
 
     var paper = new joint.dia.Paper({
-      el: document.getElementById('paper'),
-      width: 695,
-      height: 600,
+      el: document.getElementById(diagram.id),
+      width: diagram.width,
+      height: diagram.height,
       model: graph,
       linkPinning: false,
       defaultConnectionPoint: function (line, view) {

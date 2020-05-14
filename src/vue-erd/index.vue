@@ -1,13 +1,33 @@
 <template>
-  <div id="paper"></div>
+  <div :id="id"></div>
 </template>
 <script>
 
-import { ErdDemo } from './erd/demo'
+import { Diagram, ErdDemo } from './erd'
 
 export default {
+  props: {
+    id: {
+      type: String,
+      default: 'paper'
+    },
+    height: {
+      type: Number,
+      default: 700
+    },
+    width: {
+      type: Number,
+      default: 700
+    }
+  },
+  data () {
+    return {
+      diagram: null
+    }
+  },
   mounted () {
-    ErdDemo.init()
+    this.diagram = new Diagram(this.id, this.height, this.width)
+    ErdDemo.init(this.diagram)
   }
 }
 </script>
