@@ -1,12 +1,13 @@
 import { shallowMount } from '@vue/test-utils'
 import VueErd from '@/vue-erd/index.vue'
-import erdDemo from '@/vue-erd/erd-demo'
+import { ErdDemo } from '@/vue-erd/erd/demo'
 
-jest.mock('../../src/vue-erd/erd-demo', () => jest.fn())
+jest.mock('../../src/vue-erd/erd/demo')
+ErdDemo.init = jest.fn()
 
 describe('VueErd.vue', () => {
-  it('call erdDemo when mounted', () => {
+  it('Initialize the Joint.js ERD demo', () => {
     shallowMount(VueErd)
-    expect(erdDemo).toBeCalled()
+    expect(ErdDemo.init).toBeCalled()
   })
 })

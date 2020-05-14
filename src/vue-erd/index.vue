@@ -4,11 +4,11 @@
 <script>
 import 'jointjs/dist/joint.min.css'
 import * as joint from 'jointjs'
-import erdDemo from './erd-demo'
+import { ErdDemo } from './erd/demo'
 
 export default {
   mounted () {
-    erdDemo(joint)
+    ErdDemo.init(joint)
   }
 }
 </script>
