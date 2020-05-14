@@ -1,4 +1,4 @@
 import 'jointjs/dist/joint.min.css'
-import * as joint from 'jointjs'
+import { V, g, dia, shapes } from 'jointjs'
 
-export default joint
+export default { V, g, dia, erd: shapes.erd }

@@ -2,11 +2,6 @@ import joint from './joint'
 
 export class ErdDemo {
   static init (diagram) {
-    var V = joint.V
-    var g = joint.g
-
-    var erd = joint.shapes.erd
-
     var graph = new joint.dia.Graph()
 
     var paper = new joint.dia.Paper({
@@ -23,7 +18,7 @@ export class ErdDemo {
 
     // Custom highlighter - display an outline around each element that fits its shape.
 
-    var highlighter = V('path', {
+    var highlighter = joint.V('path', {
       stroke: '#e9fc03',
       'stroke-width': '2px',
       fill: 'transparent',
@@ -32,54 +27,54 @@ export class ErdDemo {
 
     // Define a specific highligthing path for every shape.
 
-    erd.Attribute.prototype.getHighlighterPath = function (w, h) {
+    joint.erd.Attribute.prototype.getHighlighterPath = function (w, h) {
       return ['M', 0, h / 2, 'A', w / 2, h / 2, '0 1,0', w, h / 2, 'A', w / 2, h / 2, '0 1,0', 0, h / 2].join(' ')
     }
 
-    erd.Entity.prototype.getHighlighterPath = function (w, h) {
+    joint.erd.Entity.prototype.getHighlighterPath = function (w, h) {
       return ['M', w, 0, w, h, 0, h, 0, 0, 'z'].join(' ')
     }
 
-    erd.Relationship.prototype.getHighlighterPath = function (w, h) {
+    joint.erd.Relationship.prototype.getHighlighterPath = function (w, h) {
       return ['M', w / 2, 0, w, w / 2, w / 2, w, 0, w / 2, 'z'].join(' ')
     }
 
-    erd.ISA.prototype.getHighlighterPath = function (w, h) {
+    joint.erd.ISA.prototype.getHighlighterPath = function (w, h) {
       return ['M', -8, 1, w + 8, 1, w / 2, h + 2, 'z'].join(' ')
     }
 
     // Define a specific connection points for every shape
 
-    erd.Attribute.prototype.getConnectionPoint = function (referencePoint) {
+    joint.erd.Attribute.prototype.getConnectionPoint = function (referencePoint) {
     // Intersection with an ellipse
-      return g.Ellipse.fromRect(this.getBBox()).intersectionWithLineFromCenterToPoint(referencePoint)
+      return joint.g.Ellipse.fromRect(this.getBBox()).intersectionWithLineFromCenterToPoint(referencePoint)
     }
 
-    erd.Entity.prototype.getConnectionPoint = function (referencePoint) {
+    joint.erd.Entity.prototype.getConnectionPoint = function (referencePoint) {
     // Intersection with a rectangle
       return this.getBBox().intersectionWithLineFromCenterToPoint(referencePoint)
     }
 
-    erd.Relationship.prototype.getConnectionPoint = function (referencePoint) {
+    joint.erd.Relationship.prototype.getConnectionPoint = function (referencePoint) {
     // Intersection with a rhomb
       var bbox = this.getBBox()
-      var line = new g.Line(bbox.center(), referencePoint)
+      var line = new joint.g.Line(bbox.center(), referencePoint)
       return (
-        line.intersection(new g.Line(bbox.topMiddle(), bbox.leftMiddle())) ||
-          line.intersection(new g.Line(bbox.leftMiddle(), bbox.bottomMiddle())) ||
-          line.intersection(new g.Line(bbox.bottomMiddle(), bbox.rightMiddle())) ||
-          line.intersection(new g.Line(bbox.rightMiddle(), bbox.topMiddle()))
+        line.intersection(new joint.g.Line(bbox.topMiddle(), bbox.leftMiddle())) ||
+          line.intersection(new joint.g.Line(bbox.leftMiddle(), bbox.bottomMiddle())) ||
+          line.intersection(new joint.g.Line(bbox.bottomMiddle(), bbox.rightMiddle())) ||
+          line.intersection(new joint.g.Line(bbox.rightMiddle(), bbox.topMiddle()))
       )
     }
 
-    erd.ISA.prototype.getConnectionPoint = function (referencePoint) {
+    joint.erd.ISA.prototype.getConnectionPoint = function (referencePoint) {
     // Intersection with a triangle
       var bbox = this.getBBox()
-      var line = new g.Line(bbox.center(), referencePoint)
+      var line = new joint.g.Line(bbox.center(), referencePoint)
       return (
-        line.intersection(new g.Line(bbox.origin(), bbox.topRight())) ||
-          line.intersection(new g.Line(bbox.origin(), bbox.bottomMiddle())) ||
-          line.intersection(new g.Line(bbox.topRight(), bbox.bottomMiddle()))
+        line.intersection(new joint.g.Line(bbox.origin(), bbox.topRight())) ||
+          line.intersection(new joint.g.Line(bbox.origin(), bbox.bottomMiddle())) ||
+          line.intersection(new joint.g.Line(bbox.topRight(), bbox.bottomMiddle()))
       )
     }
 
@@ -94,7 +89,7 @@ export class ErdDemo {
       highlighter.translate(bbox.x, bbox.y, { absolute: true })
       highlighter.attr('d', cellView.model.getHighlighterPath(bbox.width, bbox.height))
 
-      V(paper.viewport).append(highlighter)
+      joint.V(paper.viewport).append(highlighter)
     })
 
     paper.on('cell:unhighlight', function () {
@@ -103,7 +98,7 @@ export class ErdDemo {
 
     // Create shapes
 
-    var employee = new erd.Entity({
+    var employee = new joint.erd.Entity({
 
       position: { x: 100, y: 200 },
       attrs: {
@@ -126,7 +121,7 @@ export class ErdDemo {
       }
     })
 
-    var wage = new erd.WeakEntity({
+    var wage = new joint.erd.WeakEntity({
 
       position: { x: 530, y: 200 },
       attrs: {
@@ -150,7 +145,7 @@ export class ErdDemo {
       }
     })
 
-    var paid = new erd.IdentifyingRelationship({
+    var paid = new joint.erd.IdentifyingRelationship({
 
       position: { x: 350, y: 190 },
       attrs: {
@@ -172,7 +167,7 @@ export class ErdDemo {
       }
     })
 
-    var isa = new erd.ISA({
+    var isa = new joint.erd.ISA({
 
       position: { x: 125, y: 300 },
       attrs: {
@@ -190,7 +185,7 @@ export class ErdDemo {
       }
     })
 
-    var number = new erd.Key({
+    var number = new joint.erd.Key({
 
       position: { x: 10, y: 90 },
       attrs: {
@@ -212,7 +207,7 @@ export class ErdDemo {
       }
     })
 
-    var employeeName = new erd.Normal({
+    var employeeName = new joint.erd.Normal({
 
       position: { x: 75, y: 30 },
       attrs: {
@@ -230,7 +225,7 @@ export class ErdDemo {
       }
     })
 
-    var skills = new erd.Multivalued({
+    var skills = new joint.erd.Multivalued({
 
       position: { x: 150, y: 90 },
       attrs: {
@@ -255,7 +250,7 @@ export class ErdDemo {
       }
     })
 
-    var amount = new erd.Derived({
+    var amount = new joint.erd.Derived({
 
       position: { x: 440, y: 80 },
       attrs: {
@@ -279,7 +274,7 @@ export class ErdDemo {
       }
     })
 
-    var uses = new erd.Relationship({
+    var uses = new joint.erd.Relationship({
 
       position: { x: 300, y: 390 },
       attrs: {
@@ -310,7 +305,7 @@ export class ErdDemo {
     // Helpers
 
     var createLink = function (elm1, elm2) {
-      var myLink = new erd.Line({
+      var myLink = new joint.erd.Line({
         markup: [
           '<path class="connection" stroke="black" d="M 0 0 0 0"/>',
           '<path class="connection-wrap" d="M 0 0 0 0"/>',
