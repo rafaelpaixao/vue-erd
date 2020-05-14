@@ -3,7 +3,7 @@
 </template>
 <script>
 import { Diagram } from './core/erd'
-import { ErdDemo } from './core/demo'
+import DemoDiagram from './demo'
 
 export default {
   props: {
@@ -27,7 +27,8 @@ export default {
   },
   mounted () {
     this.diagram = new Diagram(this.id, this.height, this.width)
-    ErdDemo.init(this.diagram)
+    this.diagram.init()
+    this.diagram.import(DemoDiagram)
   }
 }
 </script>

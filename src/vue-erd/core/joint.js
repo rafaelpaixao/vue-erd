@@ -56,4 +56,266 @@ joint.erd.ISA.prototype.getConnectionPoint = function (referencePoint) {
   )
 }
 
-export default joint
+class ShapeBuilder {
+  static build ({ text, type, x, y }) {
+    const params = { text, type, x, y }
+    return this[type](params)
+  }
+
+  static Entity ({ text, x, y }) {
+    return new joint.erd.Entity({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.outer': {
+          fill: '#31d0c6',
+          stroke: 'none',
+          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+        },
+        '.inner': {
+          fill: '#31d0c6',
+          stroke: 'none',
+          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+        }
+      }
+    })
+  }
+
+  static WeakEntity ({ text, x, y }) {
+    return new joint.erd.WeakEntity({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.inner': {
+          fill: '#31d0c6',
+          stroke: 'none',
+          points: '155,5 155,55 5,55 5,5'
+        },
+        '.outer': {
+          fill: 'none',
+          stroke: '#31d0c6',
+          points: '160,0 160,60 0,60 0,0',
+          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+        }
+      }
+    })
+  }
+
+  static IdentifyingRelationship ({ text, x, y }) {
+    return new joint.erd.IdentifyingRelationship({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.inner': {
+          fill: '#7c68fd',
+          stroke: 'none'
+        },
+        '.outer': {
+          fill: 'none',
+          stroke: '#7c68fd',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+        }
+      }
+    })
+  }
+
+  static ISA ({ text, x, y }) {
+    return new joint.erd.ISA({
+      position: { x, y },
+      attrs: {
+        text: {
+          text,
+          fill: '#ffffff',
+          letterSpacing: 0,
+          style: { 'text-shadow': '1px 0 1px #333333' }
+        },
+        polygon: {
+          fill: '#fdb664',
+          stroke: 'none',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+        }
+      }
+    })
+  }
+
+  static Key ({ text, x, y }) {
+    return new joint.erd.Key({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.outer': {
+          fill: '#feb662',
+          stroke: 'none',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+        },
+        '.inner': {
+          fill: '#feb662',
+          stroke: 'none'
+        }
+      }
+    })
+  }
+
+  static Normal ({ text, x, y }) {
+    return new joint.erd.Normal({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.outer': {
+          fill: '#fe8550',
+          stroke: '#fe854f',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+        }
+      }
+    })
+  }
+
+  static Multivalued ({ text, x, y }) {
+    return new joint.erd.Multivalued({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { 'text-shadow': '1px 0px 1px #333333' }
+        },
+        '.inner': {
+          fill: '#fe8550',
+          stroke: 'none',
+          rx: 43,
+          ry: 21
+
+        },
+        '.outer': {
+          fill: '#464a65',
+          stroke: '#fe8550',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+        }
+      }
+    })
+  }
+
+  static Derived ({ text, x, y }) {
+    return new joint.erd.Derived({
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.inner': {
+          fill: '#fca079',
+          stroke: 'none',
+          display: 'block'
+        },
+        '.outer': {
+          fill: '#464a65',
+          stroke: '#fe854f',
+          'stroke-dasharray': '3,1',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+        }
+      }
+    })
+  }
+
+  static Relationship ({ text, x, y }) {
+    return new joint.erd.Relationship({
+
+      position: { x, y },
+      attrs: {
+        text: {
+          fill: '#ffffff',
+          text,
+          letterSpacing: 0,
+          style: { textShadow: '1px 0 1px #333333' }
+        },
+        '.outer': {
+          fill: '#797d9a',
+          stroke: 'none',
+          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+        }
+      }
+    })
+  }
+}
+
+const createLink = function (elm1, elm2, graph) {
+  var myLink = new joint.erd.Line({
+    markup: [
+      '<path class="connection" stroke="black" d="M 0 0 0 0"/>',
+      '<path class="connection-wrap" d="M 0 0 0 0"/>',
+      '<g class="labels"/>',
+      '<g class="marker-vertices"/>',
+      '<g class="marker-arrowheads"/>'
+    ].join(''),
+    source: { id: elm1.id },
+    target: { id: elm2.id }
+  })
+  return myLink.addTo(graph)
+}
+
+const createLabel = function (txt) {
+  return {
+    labels: [{
+      position: -20,
+      attrs: {
+        text: { dy: -8, text: txt, fill: '#ffffff' },
+        rect: { fill: 'none' }
+      }
+    }]
+  }
+}
+
+const setCustomHighlight = function (paper) {
+  // Custom highlighter - display an outline around each element that fits its shape.
+  const highlighter = joint.V('path', {
+    stroke: '#e9fc03',
+    'stroke-width': '2px',
+    fill: 'transparent',
+    'pointer-events': 'none'
+  })
+  // Unbind orignal highligting handlers.
+  paper.off('cell:highlight cell:unhighlight')
+  // Bind custom ones.
+  paper.on('cell:highlight', function (cellView) {
+    var padding = 5
+    var bbox = cellView.getBBox({ useModelGeometry: true }).inflate(padding)
+    highlighter.translate(bbox.x, bbox.y, { absolute: true })
+    highlighter.attr('d', cellView.model.getHighlighterPath(bbox.width, bbox.height))
+    joint.V(paper.viewport).append(highlighter)
+  })
+
+  paper.on('cell:unhighlight', function () {
+    highlighter.remove()
+  })
+}
+
+export { joint, ShapeBuilder, createLink, createLabel, setCustomHighlight }

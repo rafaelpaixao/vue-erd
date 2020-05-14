@@ -1,18 +1,31 @@
-import joint from './joint'
+import { joint, ShapeBuilder, createLabel, createLink, setCustomHighlight } from './joint'
 
-// Custom highlighter - display an outline around each element that fits its shape.
-const highlighter = joint.V('path', {
-  stroke: '#e9fc03',
-  'stroke-width': '2px',
-  fill: 'transparent',
-  'pointer-events': 'none'
-})
+class Node {
+  constructor (id, text, type, x = 0, y = 0) {
+    this.id = id
+    this.text = text
+    this.type = type
+    this.x = x
+    this.y = y
+    this.shape = ShapeBuilder.build({ text, type, x, y })
+  }
+}
 
-export class Diagram {
+class Link {
+  constructor (node1, node2, label = null) {
+    this.node1 = node1
+    this.node2 = node2
+    this.label = label
+  }
+}
+
+class Diagram {
   constructor (id, height, width) {
     this.id = id
     this.height = height
     this.width = width
+    this.nodes = {}
+    this.links = []
   }
 
   init () {
@@ -28,21 +41,42 @@ export class Diagram {
         return element.getConnectionPoint(line.start) || element.getBBox().center()
       }
     })
+    setCustomHighlight(this.paper)
+  }
 
-    // Unbind orignal highligting handlers.
-    this.paper.off('cell:highlight cell:unhighlight')
+  addNode (node) {
+    if (this.nodes[node.id]) throw Error('Node with id ' + node.id + ' already defined!')
+    this.nodes[node.id] = node
+    this.graph.addCells([node.shape])
+  }
 
-    // Bind custom ones.
-    this.paper.on('cell:highlight', function (cellView) {
-      var padding = 5
-      var bbox = cellView.getBBox({ useModelGeometry: true }).inflate(padding)
-      highlighter.translate(bbox.x, bbox.y, { absolute: true })
-      highlighter.attr('d', cellView.model.getHighlighterPath(bbox.width, bbox.height))
-      joint.V(this.paper.viewport).append(highlighter)
+  addLink (link) {
+    if (!this.nodes[link.node1] || !this.nodes[link.node2]) throw Error('Cannot create link, node not found!')
+    const newLink = createLink(
+      this.nodes[link.node1].shape,
+      this.nodes[link.node2].shape,
+      this.graph
+    )
+    if (link.label) newLink.set(createLabel(link.label))
+  }
+
+  import (exportedDiagram) {
+    const nodes = exportedDiagram.nodes
+    const links = exportedDiagram.links
+
+    Object.entries(nodes).forEach(([id, { text, type, x, y }]) => {
+      this.addNode(
+        new Node(id, text, type, x, y)
+      )
     })
 
-    this.paper.on('cell:unhighlight', function () {
-      highlighter.remove()
+    links.forEach(element => {
+      const node1 = element[0]
+      const node2 = element[1]
+      const label = element.length > 2 ? element[2] : null
+      this.addLink(new Link(node1, node2, label))
     })
   }
 }
+
+export { Diagram, Link, Node }
