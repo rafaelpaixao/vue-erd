@@ -267,21 +267,6 @@ class ShapeBuilder {
   }
 }
 
-const createLink = function (elm1, elm2, graph) {
-  var myLink = new joint.erd.Line({
-    markup: [
-      '<path class="connection" stroke="black" d="M 0 0 0 0"/>',
-      '<path class="connection-wrap" d="M 0 0 0 0"/>',
-      '<g class="labels"/>',
-      '<g class="marker-vertices"/>',
-      '<g class="marker-arrowheads"/>'
-    ].join(''),
-    source: { id: elm1.id },
-    target: { id: elm2.id }
-  })
-  return myLink.addTo(graph)
-}
-
 const createLabel = function (txt) {
   return {
     labels: [{
@@ -292,6 +277,22 @@ const createLabel = function (txt) {
       }
     }]
   }
+}
+
+const createLink = function (from, to, graph, label = null) {
+  const shape = new joint.erd.Line({
+    markup: [
+      '<path class="connection" stroke="black" d="M 0 0 0 0"/>',
+      '<path class="connection-wrap" d="M 0 0 0 0"/>',
+      '<g class="labels"/>',
+      '<g class="marker-vertices"/>',
+      '<g class="marker-arrowheads"/>'
+    ].join(''),
+    source: { id: from.id },
+    target: { id: to.id }
+  })
+  if (label) shape.set(createLabel(label))
+  return shape.addTo(graph)
 }
 
 const setCustomHighlight = function (paper) {
@@ -318,4 +319,21 @@ const setCustomHighlight = function (paper) {
   })
 }
 
-export { joint, ShapeBuilder, createLink, createLabel, setCustomHighlight }
+const createCanvas = function (id, width, height) {
+  const graph = new joint.dia.Graph()
+  const paper = new joint.dia.Paper({
+    el: document.getElementById(id),
+    width: width,
+    height: height,
+    model: graph,
+    linkPinning: false,
+    defaultConnectionPoint: function (line, view) {
+      const element = view.model
+      return element.getConnectionPoint(line.start) || element.getBBox().center()
+    }
+  })
+  setCustomHighlight(paper)
+  return { graph, paper }
+}
+
+export { createCanvas, createLink, createLabel, ShapeBuilder }

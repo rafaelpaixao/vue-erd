@@ -2,11 +2,14 @@
   <div :id="id"></div>
 </template>
 <script>
-import { Diagram } from './core/erd'
-import DemoDiagram from './demo'
+import { JointDiagram } from './lib/erd'
 
 export default {
   props: {
+    diagram: {
+      type: Object,
+      default: null
+    },
     id: {
       type: String,
       default: 'paper'
@@ -22,13 +25,18 @@ export default {
   },
   data () {
     return {
-      diagram: null
+      jointDiagram: null
     }
   },
   mounted () {
-    this.diagram = new Diagram(this.id, this.height, this.width)
-    this.diagram.init()
-    this.diagram.import(DemoDiagram)
+    this.jointDiagram = new JointDiagram(
+      this.id,
+      this.height,
+      this.width,
+      this.diagram.nodes,
+      this.diagram.links
+    )
+    this.jointDiagram.render()
   }
 }
 </script>
