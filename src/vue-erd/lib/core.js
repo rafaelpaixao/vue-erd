@@ -63,6 +63,7 @@ export class Diagram {
     this.width = width
     this.nodes = {}
     this.links = {}
+    this.theme = null
 
     nodes.forEach(node => {
       this._pushNode(node)
@@ -84,6 +85,10 @@ export class Diagram {
   }
 
   render () {
+    throw Error('Method not implemented!')
+  }
+
+  setTheme () {
     throw Error('Method not implemented!')
   }
 }

@@ -1,5 +1,6 @@
 import 'jointjs/dist/joint.min.css'
 import { V, g, dia, shapes } from 'jointjs'
+import { JOINTJS_THEME } from './themes/jointjs'
 
 const joint = { V, g, dia, erd: shapes.erd }
 
@@ -57,6 +58,8 @@ joint.erd.ISA.prototype.getConnectionPoint = function (referencePoint) {
 }
 
 class ShapeBuilder {
+  theme = JOINTJS_THEME
+
   static build ({ text, type, x, y }) {
     const params = { text, type, x, y }
     return this[type](params)
@@ -67,20 +70,20 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.outer': {
-          fill: '#31d0c6',
+          fill: this.theme.Entity,
           stroke: 'none',
-          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+          filter: this.theme.node.filter
         },
         '.inner': {
-          fill: '#31d0c6',
+          fill: this.theme.Entity,
           stroke: 'none',
-          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+          filter: this.theme.node.filter
         }
       }
     })
@@ -91,21 +94,21 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.inner': {
-          fill: '#31d0c6',
+          fill: this.theme.WeakEntity,
           stroke: 'none',
           points: '155,5 155,55 5,55 5,5'
         },
         '.outer': {
           fill: 'none',
-          stroke: '#31d0c6',
+          stroke: this.theme.WeakEntity,
           points: '160,0 160,60 0,60 0,0',
-          filter: { name: 'dropShadow', args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' } }
+          filter: this.theme.node.filter
         }
       }
     })
@@ -116,19 +119,19 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.inner': {
-          fill: '#7c68fd',
+          fill: this.theme.IdentifyingRelationship,
           stroke: 'none'
         },
         '.outer': {
           fill: 'none',
-          stroke: '#7c68fd',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+          stroke: this.theme.IdentifyingRelationship,
+          filter: this.theme.node.filter
         }
       }
     })
@@ -139,15 +142,15 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          text,
-          fill: '#ffffff',
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { 'text-shadow': '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         polygon: {
-          fill: '#fdb664',
+          fill: this.theme.ISA,
           stroke: 'none',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+          filter: this.theme.node.filter
         }
       }
     })
@@ -158,18 +161,18 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.outer': {
-          fill: '#feb662',
+          fill: this.theme.Key,
           stroke: 'none',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+          filter: this.theme.node.filter
         },
         '.inner': {
-          fill: '#feb662',
+          fill: this.theme.Key,
           stroke: 'none'
         }
       }
@@ -181,15 +184,15 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.outer': {
-          fill: '#fe8550',
-          stroke: '#fe854f',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+          fill: this.theme.Normal,
+          stroke: this.theme.Normal,
+          filter: this.theme.node.filter
         }
       }
     })
@@ -200,22 +203,22 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { 'text-shadow': '1px 0px 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.inner': {
-          fill: '#fe8550',
+          fill: this.theme.Multivalued,
           stroke: 'none',
           rx: 43,
           ry: 21
 
         },
         '.outer': {
-          fill: '#464a65',
-          stroke: '#fe8550',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+          fill: 'transparent',
+          stroke: this.theme.Multivalued,
+          filter: this.theme.node.filter
         }
       }
     })
@@ -226,21 +229,21 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.inner': {
-          fill: '#fca079',
+          fill: this.theme.Derived,
           stroke: 'none',
           display: 'block'
         },
         '.outer': {
-          fill: '#464a65',
-          stroke: '#fe854f',
+          fill: 'transparent',
+          stroke: this.theme.Derived,
           'stroke-dasharray': '3,1',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 2, color: '#222138' } }
+          filter: this.theme.node.filter
         }
       }
     })
@@ -252,47 +255,45 @@ class ShapeBuilder {
       position: { x, y },
       attrs: {
         text: {
-          fill: '#ffffff',
-          text,
+          fill: this.theme.node.text,
           letterSpacing: 0,
-          style: { textShadow: '1px 0 1px #333333' }
+          style: this.theme.node.style,
+          text
         },
         '.outer': {
-          fill: '#797d9a',
+          fill: this.theme.Relationship,
           stroke: 'none',
-          filter: { name: 'dropShadow', args: { dx: 0, dy: 2, blur: 1, color: '#333333' } }
+          filter: this.theme.node.filter
         }
       }
     })
   }
-}
 
-const createLabel = function (txt) {
-  return {
-    labels: [{
-      position: -20,
-      attrs: {
-        text: { dy: -8, text: txt, fill: '#ffffff' },
-        rect: { fill: 'none' }
-      }
-    }]
+  static Line ({ from, to, graph, label = null }) {
+    const shape = new joint.erd.Line({
+      markup: [
+        '<path class="connection" stroke="' + this.theme.link.line + '" d="M 0 0 0 0"/>',
+        '<path class="connection-wrap" d="M 0 0 0 0"/>',
+        '<g class="labels"/>',
+        '<g class="marker-vertices"/>',
+        '<g class="marker-arrowheads"/>'
+      ].join(''),
+      source: { id: from.id },
+      target: { id: to.id }
+    })
+    if (label) {
+      shape.set({
+        labels: [{
+          position: -20,
+          attrs: {
+            text: { dy: -8, text: label, fill: this.theme.link.text },
+            rect: { fill: this.theme.link.background }
+          }
+        }]
+      })
+    }
+    return shape.addTo(graph)
   }
-}
-
-const createLink = function (from, to, graph, label = null) {
-  const shape = new joint.erd.Line({
-    markup: [
-      '<path class="connection" stroke="black" d="M 0 0 0 0"/>',
-      '<path class="connection-wrap" d="M 0 0 0 0"/>',
-      '<g class="labels"/>',
-      '<g class="marker-vertices"/>',
-      '<g class="marker-arrowheads"/>'
-    ].join(''),
-    source: { id: from.id },
-    target: { id: to.id }
-  })
-  if (label) shape.set(createLabel(label))
-  return shape.addTo(graph)
 }
 
 const setCustomHighlight = function (paper) {
@@ -319,12 +320,15 @@ const setCustomHighlight = function (paper) {
   })
 }
 
-const createCanvas = function (id, width, height) {
+const createCanvas = function (id, width, height, background = 'white') {
   const graph = new joint.dia.Graph()
   const paper = new joint.dia.Paper({
     el: document.getElementById(id),
     width: width,
     height: height,
+    background: {
+      color: background
+    },
     model: graph,
     linkPinning: false,
     defaultConnectionPoint: function (line, view) {
@@ -336,4 +340,4 @@ const createCanvas = function (id, width, height) {
   return { graph, paper }
 }
 
-export { createCanvas, createLink, createLabel, ShapeBuilder }
+export { createCanvas, ShapeBuilder }

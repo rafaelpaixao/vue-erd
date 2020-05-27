@@ -1,5 +1,5 @@
 <template>
-  <div :id="id"></div>
+  <div :id="id" class="v-erd"></div>
 </template>
 <script>
 import { JointDiagram } from './lib/erd'
@@ -21,6 +21,10 @@ export default {
     width: {
       type: Number,
       default: 700
+    },
+    theme: {
+      type: String,
+      default: 'joint'
     }
   },
   data () {
@@ -36,24 +40,21 @@ export default {
       this.diagram.nodes,
       this.diagram.links
     )
+    this.jointDiagram.setTheme(this.theme)
     this.jointDiagram.render()
   }
 }
 </script>
 <style lang="scss">
-#paper {
+.v-erd {
+    overflow:hidden;
     width: inherit;
     display: block;
     border: 0;
     margin-bottom: 3px;
     text-align: center;
-    background: #464a65;
     &>svg {
         overflow: visible;
-    }
-    .connection,
-    .connection-wrap {
-        stroke: #ccc0ef;
     }
 }
 </style>
