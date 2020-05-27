@@ -3,6 +3,7 @@
 </template>
 <script>
 import { JointDiagram } from './lib/erd'
+import themes from './lib/themes'
 
 export default {
   props: {
@@ -16,15 +17,15 @@ export default {
     },
     height: {
       type: Number,
-      default: 700
+      default: 600
     },
     width: {
       type: Number,
-      default: 700
+      default: 730
     },
     theme: {
-      type: String,
-      default: 'joint'
+      type: [String, Object],
+      default: 'summer'
     }
   },
   data () {
@@ -40,7 +41,11 @@ export default {
       this.diagram.nodes,
       this.diagram.links
     )
-    this.jointDiagram.setTheme(this.theme)
+    if (typeof (this.theme) === 'string') {
+      this.jointDiagram.setTheme(themes[this.theme])
+    } else {
+      this.jointDiagram.setTheme(this.theme)
+    }
     this.jointDiagram.render()
   }
 }

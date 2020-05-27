@@ -1,7 +1,14 @@
-import { JOINTJS_THEME } from './jointjs'
-import { SUMMER_THEME } from './summer'
+import christmas from './christmas'
+import darcula from './darcula'
+import monokai from './monokai'
+import summer from './summer'
+import winter from './winter'
 
 export default {
-  joint: JOINTJS_THEME,
-  summer: SUMMER_THEME
+  christmas,
+  darcula,
+  monokai,
+  summer,
+  winter
 }
+export const DEFAULT_THEME = winter

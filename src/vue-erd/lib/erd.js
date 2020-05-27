@@ -1,15 +1,9 @@
 import { Diagram } from './core'
 import { createCanvas, ShapeBuilder } from './joint'
-import themes from './themes'
 
 export class JointDiagram extends Diagram {
   setTheme (theme) {
-    console.log(themes)
-    if (themes[theme]) {
-      this.theme = themes[theme]
-    } else {
-      throw Error('Invalid theme!')
-    }
+    this.theme = theme
   }
 
   render () {

@@ -1,6 +1,6 @@
 import 'jointjs/dist/joint.min.css'
 import { V, g, dia, shapes } from 'jointjs'
-import { JOINTJS_THEME } from './themes/jointjs'
+import DEFAULT_THEME from './themes/default'
 
 const joint = { V, g, dia, erd: shapes.erd }
 
@@ -58,7 +58,7 @@ joint.erd.ISA.prototype.getConnectionPoint = function (referencePoint) {
 }
 
 class ShapeBuilder {
-  theme = JOINTJS_THEME
+  theme = DEFAULT_THEME
 
   static build ({ text, type, x, y }) {
     const params = { text, type, x, y }

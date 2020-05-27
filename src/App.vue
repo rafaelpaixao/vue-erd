@@ -37,4 +37,7 @@ export default {
     font-size: x-large;
   }
 }
+.v-erd {
+  border: solid 1px #ccc0ef
+}
 </style>

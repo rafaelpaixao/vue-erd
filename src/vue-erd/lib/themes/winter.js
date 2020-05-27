@@ -1,6 +1,6 @@
 import { dropShadowFilter, textShadowStyle } from './constants'
 
-export const JOINTJS_THEME = {
+export default {
   paper: '#464a65',
   node: {
     text: '#ffffff',

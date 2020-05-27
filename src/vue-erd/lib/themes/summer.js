@@ -1,6 +1,6 @@
 import { textShadowStyle } from './constants'
 
-export const SUMMER_THEME = {
+export default {
   paper: 'white',
   node: {
     text: '#ffffff',
